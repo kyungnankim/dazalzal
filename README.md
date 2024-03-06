@@ -163,3 +163,14 @@ WHERE GRADE = (<br/>
 				WHERE GRADE_NAME = '우수회원')<br/>
 AND AREA_CODE ='031';<br/>
 <br/><br/>
+
+
+--TB_MEMBER 테이블에서 GRADE가 '일반회원'이면서 AREA_CODE가 '02'가 아닌 회원의 회원 ID 조회하기.<br/>
+
+SELECT MEMBERID<br/>
+FROM TB_MEMBER <br/>
+WHERE GRADE = (<br/>
+	SELECT GRADE_CODE <br/>
+	FROM TB_GRADE <br/>
+	WHERE GRADE_NAME = '일반회원')<br/>
+AND AREA_CODE != '02';<br/>
