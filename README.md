@@ -174,3 +174,54 @@ WHERE GRADE = (<br/>
 	FROM TB_GRADE <br/>
 	WHERE GRADE_NAME = '일반회원')<br/>
 AND AREA_CODE != '02';<br/>
+
+--TB_MEMBER 테이블에서 GRADE 가 '특별회원'이면서'
+--AREA_CODE 가 '031' 이 아닌 회원들의 회원 이름 조회하기
+SELECT MEMBER_NAME
+FROM TB_MEMBER
+WHERE GRADE = (
+	SELECT GRADE_CODE 
+	FROM TB_GRADE 
+	WHERE GRADE_NAME='특별회원')
+AND AREA_CODE != '031';
+
+-- TB_MEMBER 테이블에서 
+--AREA_CODE가 031이거나 032 인 회원들의 이름 조회
+SELECT MEMBER_NAME
+FROM TB_MEMBER 
+WHERE AREA_CODE IN('031','032');
+
+
+-- selct rownum을 활용한 예제
+--ROWNUM 이란? select 해온 데이터에 번호를 붙이는 것
+-- 번호를 붙여 원하는 만큼의 갯수만 가져오고 싶을 때 사용
+
+--TB_MEMBER 회원들 중에서  ROWNUM 이 3 이하인 데이터 조회!
+SELECT *
+FROM TB_MEMBER
+WHERE ROWNUM <= 3;
+
+-- TB_MEMBER 테이블에서
+--지역코드가 031 인 회원 중에서 
+--처음 3명의 아이디와 이름 조회하기
+SELECT MEMBERID, MEMBER_NAME
+FROM TB_MEMBER 
+WHERE AREA_CODE ='031' AND ROWNUM <=3;
+
+--TB_MEMBER 이름순으로 상위 3개 멤버 조회하기
+SELECT MEMBERID, MEMBER_NAME
+FROM (
+SELECT MEMBERID, MEMBER_NAME, ROWNUM AS RN
+ FROM TB_MEMBER
+ ORDER BY MEMBER_NAME) --AS 별칭
+ WHERE RN <= 3;
+
+
+
+
+
+
+
+
+
+
